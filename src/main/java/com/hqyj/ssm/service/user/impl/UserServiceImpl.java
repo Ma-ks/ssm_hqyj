@@ -11,6 +11,8 @@ import com.hqyj.ssm.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -68,6 +70,19 @@ public class UserServiceImpl implements UserService {
         } else {
             return ResultStatic.FAIL;
         }
+    }
+
+    @Override
+    public ResultStatic delBatchUser(String ids) {
+        String[] splitIds = ids.split(",");
+
+        if (splitIds.length > 0) {
+            int status = userMapper.deleteBatchIds(Arrays.asList(splitIds));
+            if (status > 0) {
+                return ResultStatic.SUCCESS;
+            }
+        }
+        return ResultStatic.FAIL;
     }
 
 

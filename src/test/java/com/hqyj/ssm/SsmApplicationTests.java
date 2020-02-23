@@ -1,5 +1,7 @@
 package com.hqyj.ssm;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hqyj.ssm.bean.po.user.UserPO;
 import com.hqyj.ssm.mapper.user.UserMapper;
 import com.hqyj.ssm.util.enumm.ResultStatic;
@@ -48,5 +50,17 @@ class SsmApplicationTests {
     public void testEnum(){
         System.out.println(ResultStatic.SUCCESS);
         System.out.println(ResultStatic.SUCCESS.getType()+":"+ResultStatic.SUCCESS.getDesc());
+    }
+
+    @Test
+    public void testSelect(){
+
+        UserPO userPO = new UserPO();
+
+        QueryWrapper<UserPO> wrapper = new QueryWrapper<>();
+        wrapper.setEntity(userPO);
+
+        userMapper.selectPage(new Page<>(1,10),wrapper);
+
     }
 }

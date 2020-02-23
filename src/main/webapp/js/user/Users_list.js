@@ -5,6 +5,7 @@ var vue = new Vue({
 		condition: {}
 	},
 	methods: {
+		//初始化表格
 		initTable: function() {
 			//taht 是 vue
 			var that = this;
@@ -88,11 +89,13 @@ var vue = new Vue({
 				});
 			});
 		},
+		//头部工具栏
 		headTool: function() {
 			var that = this;
 			layui.use('table', function() {
 				var table = layui.table;
 				table.on('toolbar(test)', function(obj) {
+					var checkStatus = table.checkStatus(obj.config.id);
 					switch (obj.event) {
 						case 'selectUser':
 							that.selectUserMethod();
@@ -100,31 +103,108 @@ var vue = new Vue({
 						case 'addUser':
 							that.addUserMethod();
 							break;
+						case 'delUsers':
+							layer.confirm('真的删除行么', function(index) {
+								var users = checkStatus.data;
+								that.delUserById(users);
+							});
+							break;
 					};
 				});
 
 			});
 		},
+		//编辑工具栏
+		editTool: function() {
+			var that = this;
+			layui.use('table', function() {
+				var table = layui.table;
+				//监听行工具事件
+				table.on('tool(test)', function(obj) {
+					var data = obj.data;
+					//console.log(obj)
+					if (obj.event === 'edit') {
+						// layer.prompt({
+						// 	formType: 2,
+						// 	value: data.email
+						// }, function(value, index) {
+						// 	obj.update({
+						// 		email: value
+						// 	});
+						// 	layer.close(index);
+						// });
+
+					} else if (obj.event === 'del') {
+						layer.confirm('真的删除行么', function(index) {
+							var users = [obj.data];
+							console.log(users);
+							that.delUserById(users);
+						});
+					}
+				});
+
+			});
+		},
+		//删除用户
+		delUserById: function(users) {
+			var that = this;
+			//获取待删除的id列表
+			var ids = [];
+			for (var index in users) {
+				ids.push(users[index].id);
+			}
+			//给服务器发送请求
+			$.ajax({
+				type: "post",
+				url: "/userController/delUser",
+				data: {
+					ids: ids.toString()
+				},
+				// contentType: "application/json",
+				success: function(data) {
+					if (data.code == 1) {
+						//删除成功
+						that.reloadTable();
+						layer.msg('删除成功', {
+							icon: 1,
+							time: 2000
+						});
+					} else {
+						//删除失败
+						layer.msg('删除失败', {
+							icon: 1,
+							time: 2000
+						});
+					}
+				},
+				error: function(data) {
+					alert("ajax请求失败");
+				},
+				dataType: "json" //设置返回类型
+			});
+
+
+
+		},
+		//输入框查询
 		selectUserMethod: function() {
 			var that = this;
 			var usernameVal = $("#username").val();
-			if (usernameVal.length > 0) {
-				that.condition.username = usernameVal;
-				//重载表格
-				layui.use('table', function() {
-					var table = layui.table;
-					table.reload('test', {
-						where: {
-							condition: that.condition
-						},
-						page: {
-							curr: 1 //重新从第 1 页开始
-						}
-					}); //只重载数据
-				});
-			}
-
+			that.condition.username = usernameVal;
+			//重载表格
+			layui.use('table', function() {
+				var table = layui.table;
+				table.reload('test', {
+					where: {
+						condition: that.condition
+					},
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+				}); //只重载数据
+			});
 		},
+		//添加用户按钮
 		addUserMethod: function() {
 			layer.open({
 				type: 2,
@@ -133,14 +213,25 @@ var vue = new Vue({
 				shade: false,
 				maxmin: true, //开启最大化最小化按钮
 				area: ['100%', '100%'],
-				content: 'https://www.baidu.com',
+				content: '/html/user/Users_add.html',
 
 			});
-		}
+		},
+		//重载表格
+		reloadTable: function() {
+			layui.use('table', function() {
+				var table = layui.table;
+				table.reload('test'); //只重载数据
+			});
+		},
+
+
+
 	},
 	mounted: function() {
 		this.initTable();
 		this.headTool();
+		this.editTool();
 	},
 });
 

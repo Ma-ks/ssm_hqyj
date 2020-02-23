@@ -42,6 +42,13 @@ public class UserController {
         return resultStatic.toString();
     }
 
+    @ResponseBody
+    @RequestMapping("/delUser")
+    public String delUser(String ids){
+        ResultStatic resultStatic = userService.delBatchUser(ids);
+        return resultStatic.toString();
+    }
+
 
 
 }

@@ -28,4 +28,10 @@ public interface UserService {
      */
     ResultStatic addUser(UserPO userPO);
 
+    /**
+     * 根据传入的ids进行批量删除
+     * @param ids
+     * @return
+     */
+    ResultStatic delBatchUser(String ids);
 }

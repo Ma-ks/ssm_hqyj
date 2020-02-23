@@ -1,4 +1,4 @@
-package com.hqyj.ssm.config;
+package com.hqyj.ssm.config.mybatis;
 
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.context.annotation.Bean;
