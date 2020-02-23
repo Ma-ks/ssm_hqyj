@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<!--layui-->
+		<link rel="stylesheet" href="/plugns/layui/css/layui.css">
+		<script src="/plugns/layui/layui.js" charset="utf-8"></script>
+		<!--vue-->
+		<script src="/plugns/vue/vue.js"></script>
+		<!--jQuery-->
+		<script src="/plugns/jQuery/jquery-3.4.1.js"></script>
+		<!--引入jQuery Cookie-->
+		<script src="/plugns/jQuery/jquery.cookie.js"></script>
+
+
+	</head>
+	<body>
+		<div id="loginform" style="width: 400px;height: 400px;margin-left: 30%;margin-top: 150px;">
+			<form class="layui-form" action="">
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">密码</label>
+					<div class="layui-input-inline">
+						<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+						 class="layui-input">
+					</div>
+					<!-- <div class="layui-form-mid layui-word-aux">密码不小于6位</div> -->
+				</div>
+
+				<!--这里添加一个按钮用于保存30天-->
+				<div class="layui-form-item">
+					<div class="layui-input-inline">
+						<input type="checkbox" id="saveUser" name="saveUser" lay-skin="primary" title="记住30天">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="submitbutton">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+		<!-- 引入当前页js -->
+		<script src="../js/login.js" type="text/javascript" charset="utf-8"></script>
+
+	</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.ssm.mapper.user.UserMapper">
+
+    <select id="selAll" parameterType="com.hqyj.ssm.util.page.PageDTO" resultType="UserPO">
+        select * from user
+        <if test="condition!=null">
+            <where>
+                <if test="condition.id!=null and condition.id!=''">
+                    and id = #{condition.id}
+                </if>
+                <if test="condition.username!=null and condition.username!=''">
+                    and username = #{condition.username}
+                </if>
+                <if test="condition.password!=null and condition.password!=''">
+                    and password = #{condition.password}
+                </if>
+                <if test="condition.sex!=null and condition.sex!=''">
+                    and sex = #{condition.sex}
+                </if>
+            </where>
+        </if>
+        limit #{limitLeft},#{limitRight}
+    </select>
+
+</mapper>
