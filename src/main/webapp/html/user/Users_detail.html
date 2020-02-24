@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!--layui-->
+		<link rel="stylesheet" href="/plugns/layui/css/layui.css">
+		<script src="/plugns/layui/layui.js" charset="utf-8"></script>
+		<!--vue-->
+		<script src="/plugns/vue/vue.js"></script>
+		<!--jQuery-->
+		<script src="/plugns/jQuery/jquery-3.4.1.js"></script>
+	</head>
+	<body>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>用户详细信息</legend>
+		</fieldset>
+
+		<div id="tableDetail">
+			<div class="layui-form" style="width:500px;margin-left: 200px;">
+				<table class="layui-table">
+					<tbody>
+						<!-- private Integer id;//员工编号 -->
+						<tr>
+							<td>员工编号：</td>
+							<td>{{rowData.id}}</td>
+						</tr>
+						<!-- private String username;//姓名 -->
+						<tr>
+							<td>姓名：</td>
+							<td>{{rowData.username}}</td>
+						</tr>
+						<!-- private String password;//密码 -->
+						<tr>
+							<td>密码：</td>
+							<td>{{rowData.password}}</td>
+						</tr>
+						<!-- private String sex;//性别 -->
+						<tr>
+							<td>性别：</td>
+							<td>{{rowData.sex}}</td>
+						</tr>
+						<!-- private Date birthday;//出生日期 -->
+						<tr>
+							<td>出生日期：</td>
+							<td>{{rowData.birthday}}</td>
+						</tr>
+						<!-- private String phone;//电话 -->
+						<tr>
+							<td>电话：</td>
+							<td>{{rowData.phone}}</td>
+						</tr>
+						<!-- private String mail;//邮箱地址 -->
+						<tr>
+							<td>邮箱地址：</td>
+							<td>{{rowData.mail}}</td>
+						</tr>
+						<!-- private String education;//学历 -->
+						<tr>
+							<td>学历：</td>
+							<td>{{rowData.education}}</td>
+						</tr>
+						<!-- private String department;//部门 -->
+						<tr>
+							<td>部门：</td>
+							<td>{{rowData.department}}</td>
+						</tr>
+						<!-- private String position;//职位 -->
+						<tr>
+							<td>职位：</td>
+							<td>{{rowData.position}}</td>
+						</tr>
+						<!-- private Date entryTime;//入职时间 -->
+						<tr>
+							<td>入职时间：</td>
+							<td>{{rowData.entryTime}}</td>
+						</tr>
+						<!-- private String personStatic;//人员状态 -->
+						<tr>
+							<td>人员状态：</td>
+							<td>{{rowData.personStatic}}</td>
+						</tr>
+						<!-- private String note;//备注 -->
+						<tr>
+							<td>备注：</td>
+							<td>{{rowData.note}}</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+
+		<script src="../../js/user/Users_detail.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

@@ -2,17 +2,16 @@ package com.hqyj.ssm.service.user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hqyj.ssm.util.enumm.ResultStatic;
-import com.hqyj.ssm.util.page.PageDTO;
 import com.hqyj.ssm.bean.po.user.UserPO;
-import com.hqyj.ssm.util.page.PageVO;
 import com.hqyj.ssm.mapper.user.UserMapper;
 import com.hqyj.ssm.service.user.UserService;
+import com.hqyj.ssm.util.enumm.ResultStatic;
+import com.hqyj.ssm.util.page.PageDTO;
+import com.hqyj.ssm.util.page.PageVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -83,6 +82,25 @@ public class UserServiceImpl implements UserService {
             }
         }
         return ResultStatic.FAIL;
+    }
+
+    @Override
+    public UserPO getUserById(Integer id) {
+        UserPO userPO = userMapper.selectById(id);
+        return userPO;
+    }
+
+    @Override
+    public ResultStatic updateUserById(UserPO userPO) {
+        int status = 0;
+        if (userPO != null) {
+            status = userMapper.updateById(userPO);
+        }
+        if (status > 0) {
+            return ResultStatic.SUCCESS;
+        } else {
+            return ResultStatic.FAIL;
+        }
     }
 
 

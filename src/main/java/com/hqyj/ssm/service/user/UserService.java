@@ -34,4 +34,18 @@ public interface UserService {
      * @return
      */
     ResultStatic delBatchUser(String ids);
+
+    /**
+     * 根据用户Id获取用户信息
+     * @param id
+     * @return
+     */
+    UserPO getUserById(Integer id);
+
+    /**
+     * 根据用户对象更新用户
+     * @param userPO
+     * @return
+     */
+    ResultStatic updateUserById(UserPO userPO);
 }

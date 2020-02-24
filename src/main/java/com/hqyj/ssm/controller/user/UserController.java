@@ -49,6 +49,20 @@ public class UserController {
         return resultStatic.toString();
     }
 
+    @ResponseBody
+    @RequestMapping("/getUserById")
+    public UserPO getUserById(Integer id){
+        UserPO user = userService.getUserById(id);
+        return user;
+    }
+
+    @ResponseBody
+    @RequestMapping("/updateUser")
+    public String updateUser(UserPO userPO){
+        System.out.println(userPO.getId());
+        ResultStatic resultStatic = userService.updateUserById(userPO);
+        return resultStatic.toString();
+    }
 
 
 }

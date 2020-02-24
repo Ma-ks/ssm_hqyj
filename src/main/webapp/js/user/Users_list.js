@@ -2,7 +2,8 @@ var vue = new Vue({
 	el: '#userTableVue',
 	data: {
 		tableObj: {},
-		condition: {}
+		condition: {},
+		rowData: {},
 	},
 	methods: {
 		//初始化表格
@@ -122,22 +123,19 @@ var vue = new Vue({
 				//监听行工具事件
 				table.on('tool(test)', function(obj) {
 					var data = obj.data;
-					//console.log(obj)
 					if (obj.event === 'edit') {
-						// layer.prompt({
-						// 	formType: 2,
-						// 	value: data.email
-						// }, function(value, index) {
-						// 	obj.update({
-						// 		email: value
-						// 	});
-						// 	layer.close(index);
-						// });
+						that.rowData = data;
+						//打开编辑窗口
+						layer.open({
+							type: 2,
+							title: '修改用户',
+							area: ['100%', '100%'],
+							content: '/html/user/Users_update.html',
+						});
 
 					} else if (obj.event === 'del') {
 						layer.confirm('真的删除行么', function(index) {
 							var users = [obj.data];
-							console.log(users);
 							that.delUserById(users);
 						});
 					}
@@ -182,9 +180,6 @@ var vue = new Vue({
 				},
 				dataType: "json" //设置返回类型
 			});
-
-
-
 		},
 		//输入框查询
 		selectUserMethod: function() {
@@ -209,12 +204,8 @@ var vue = new Vue({
 			layer.open({
 				type: 2,
 				title: '添加用户',
-				shadeClose: true,
-				shade: false,
-				maxmin: true, //开启最大化最小化按钮
 				area: ['100%', '100%'],
 				content: '/html/user/Users_add.html',
-
 			});
 		},
 		//重载表格
@@ -224,6 +215,27 @@ var vue = new Vue({
 				table.reload('test'); //只重载数据
 			});
 		},
+		//监听行事件,用于打开当前行的详细信息.
+		rowClick: function() {
+			var that = this;
+			layui.use('table', function() {
+				var table = layui.table;
+				//监听行单击事件（双击事件为：rowDouble）
+				table.on('rowDouble(test)', function(obj) {
+					var data = obj.data;
+					that.rowData = data;
+					//打开详细列表网页,用于显示详细信息
+					layer.open({
+						type: 2,
+						title: '用户详细信息',
+						area: ['100%', '100%'],
+						content: '/html/user/Users_detail.html',
+					});
+					//标注选中样式
+					obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+				});
+			});
+		}
 
 
 
@@ -232,6 +244,7 @@ var vue = new Vue({
 		this.initTable();
 		this.headTool();
 		this.editTool();
+		this.rowClick();
 	},
 });
 
