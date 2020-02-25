@@ -64,8 +64,12 @@ var vue = new Vue({
 				});
 
 			});
-
-		}
+		},
+		closeThisWindow: function() {
+			var index = parent.layer.getFrameIndex(window.name);
+			//关闭当前窗口
+			parent.layer.close(index);
+		},
 	},
 	mounted: function() {
 		this.initForm();

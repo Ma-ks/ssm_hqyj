@@ -15,7 +15,7 @@ var vue = new Vue({
 					//向服务端发送请求.验证用户名和密码
 					$.ajax({
 						type: "post",
-						url: "/userController/login.do",
+						url: "/userController/login",
 						data: that.loginData,
 						success: function(data) {
 							//根据服务器返回信息进行判断
@@ -45,7 +45,7 @@ var vue = new Vue({
 									});
 								}
 								//跳转页面
-								window.location.href = "../html/user/Users.html";
+								window.location.href = "../html/user/Users_list.html";
 							}
 						},
 						error: function(data) {
